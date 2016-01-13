@@ -2,8 +2,9 @@
 
 //e.g. "anna" = false, "kate" = true
 
+//Time Complexity: liner
+//Space complexity:
 
-//above is liner time
 var isUnique = function (str) {
 
   //first make all letters lower case

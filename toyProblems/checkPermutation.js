@@ -7,6 +7,8 @@
 //if I wanted 0(n logn) I would use a sort function and then compare the two.
 //could break the map out into another function so it is not called multiple times in the main function body
 
+//Space complexity:
+
 var checkPermutations = function (str1, str2) {
 
   var str1Obj = {};

@@ -1,5 +1,8 @@
 //given an image n*n write a method to rotate by 90 degrees either way in place
 
+//Time Complexity: quadratic
+//Space complexity:
+
 var rotateMatrix = function (matrix, direction) {
 
   var lengthInner = matrix[0].length;

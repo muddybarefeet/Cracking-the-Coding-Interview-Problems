@@ -5,6 +5,9 @@
 //example = "aaabbbccccc" ----> "a3b3c5"
 //another example = "aabbcc" -----> "aabbcc"
 
+//Time Complexity: liner
+//Space complexity:
+
 var stringCompression = function (str) {
 
   var letterFreq = {};
@@ -22,10 +25,9 @@ var stringCompression = function (str) {
   for (var key in letterFreq) {
     result += key + letterFreq[key];
   }
-  console.log(result.length, str.length);
+
   //check lengths and return letter needed
   return str.length <= result.length ? str : result;
-
 
 };
 

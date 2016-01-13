@@ -3,7 +3,9 @@
 
 //e.g. "Tact Cat" ---> true ("tacocat", "atcocta" ....)
 
-//this is a linear solution
+//Time Complexity: liner
+//Space complexity:
+
 var palendromePermutations = function (str) {
 
   var letterFrequency = {};

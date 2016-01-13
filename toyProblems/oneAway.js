@@ -6,6 +6,9 @@
 //     'place', 'pla' ---> false
 //     'place', 'blame' ---> flase
 
+//Linear time complexity
+//Space Complexity:
+
 var oneAway = function (str1, str2) {
 
   var longest;

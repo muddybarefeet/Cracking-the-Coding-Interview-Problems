@@ -4,6 +4,9 @@
 //eg. "Mr John Smith        ", 13
 //----> "Mr%20John%20Smith"
 
+//Time Complexity:
+//Space complexity:
+
 var URLify = function (str) {
 
   //remove trailing whitespace on either side of a string
