@@ -35,7 +35,8 @@ var oneAway = function (str1, str2) {
   }
 
   for (var i = 0; i < longest.length; i++) {
-    //compare each letter of longest to shortest
+
+    //return straight away if the counter is greater than one
     if (counter > 1) {
       return false;
     }
@@ -43,6 +44,7 @@ var oneAway = function (str1, str2) {
     if (sameLength) {
       if (longest[i] !== longest2[i]) {
         counter++;
+        //update the letter to the current letter on longest
         var arr = longest2.split('');
         arr.splice(i,1,longest[i]);
         longest2 = arr.join('');
