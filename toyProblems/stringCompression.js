@@ -6,30 +6,32 @@
 //another example = "aabbcc" -----> "aabbcc"
 
 //Time Complexity: liner
-//Space complexity:
+//Space complexity: with respect to how repetative your letters are (constant to linear)
 
 var stringCompression = function (str) {
 
-  var letterFreq = {};
+  var letterFreq = [];
   var result = "";
+  var currentLetter = str[0];
+  var letterCount = 0;
 
-  //make an object of letter frequencies and make string from this
+  //loop through the string and for each letter count frequency
   for (var i = 0; i < str.length; i++) {
-    if (letterFreq[str[i]]) {
-      letterFreq[str[i]] ++;
-    } else {
-      letterFreq[str[i]] = 1;
+    if (currentLetter !== str[i]) {
+      result += currentLetter + letterCount;
+      letterCount = 0;
     }
+    currentLetter = str[i];
+    letterCount++;
   }
 
-  for (var key in letterFreq) {
-    result += key + letterFreq[key];
-  }
+  //to get the last letter 
+  result += currentLetter + letterCount;
 
   //check lengths and return letter needed
   return str.length <= result.length ? str : result;
 
 };
 
-// var a = stringCompression('wwwwwww');
+// var a = stringCompression('anna');
 // console.log(a);
