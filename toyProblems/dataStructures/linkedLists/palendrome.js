@@ -68,74 +68,60 @@ LinkedList.prototype.makeNode = function (value) {
 
 var list = new LinkedList();
 list.addToTail(4);
-list.addToTail(4);
-list.addToTail(9);
-list.addToTail(9);
-list.addToTail(8);
-list.addToTail(9);
+list.addToTail(3);
 list.addToTail(9);
 list.addToTail(4);
-list.addToTail(9);
 
 
 
 //---------------------------------QUESTION-------------------------------------//
+//implement a function to test if a linked list is a palendrome
 
-//remove duplicate values in an unsorted linked list
+// Method 1:
+//stack method: go through the list and make a stack
+//loop through again and for each node pop one thing off the stack and check it
 
-//Time Complexity: linear
-//Space Complexity: constant
+var isPalendrome = function (list) {
 
-var removeDuplicates = function (list) {
+  stack = [];
+  var result;
 
-  var previous = list.head;
-
-  var current = previous.next;
-  var seenSoFar = {};
-
-  seenSoFar[previous.value] = true;
-
-  while (current.next !== null) {
-
-    if (!seenSoFar[current.value]) {
-      seenSoFar[current.value] = true;
-    } else {
-      previous.next = current.next;
-    }
-    previous = current;
-    current = previous.next;
-
+  //check that the head and tail are the same if not return
+  if (list.head.value !== list.tail.value) {
+    return false;
   }
 
-  return list;
+  var makeStack = function (node) {
+    stack.push(node.value);
+    if (node.next === null) {
+      return;
+    }
+    makeStack(node.next);
+  };
+
+  makeStack(list.head);
+  var checkStack = function (node,stack) {
+
+    var toPop = parseInt(stack.pop(), 10);
+    if (node.value !== toPop) {
+      result = false;
+      return;
+    }
+    if (node.next === null) {
+      result = true;
+      return;
+    }
+    checkStack(node.next, stack);
+  };
+
+  checkStack(list.head, stack);
+
+  return result;
 
 };
 
-// console.log(removeDuplicates(list));
+console.log(isPalendrome(list, list.head));
 
-//what about not with an object?
-//have a runner to check the num on with the rest of the linked
-var removeDuplicates2 = function (list) {
 
-  var current = list.head;
-
-  while (current.next !== null) {
-    
-    var runner = current;
-
-    while (runner.next !== null) {
-      if (runner.next.value === current.value) {
-        runner.next = runner.next.next;
-      } else {
-        runner = runner.next;
-      }
-    }
-
-    current = current.next;
-  }
-
-  return list;
-
-};
-
-console.log(removeDuplicates2(list));
+//get midpoint and split the list 
+//reverse the second half and compare beware the odd palendromes!
