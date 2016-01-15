@@ -1,4 +1,5 @@
 
+
 //LINKED list copied in to answer question
 
 var LinkedList = function(){
@@ -80,31 +81,13 @@ list.addToTail(11);
 
 
 //---------------------------------QUESTION-------------------------------------//
-//return the kth to last element in a singly linked list
-//Time Complexity: linear with respect to the kth number
-//Space Complexity: constant
+//partition a linked list around value X, so that all nodes less than X go before it and all greater go after
 
-var kthToLastElement = function (num, list) {
+var partition = function () {
 
-  var leader;
-  var follower = list.head;
-
-  var counter = 0;
-
-  leader = list.head;
-
-  for (var i = 0; i < num; i++) {
-    leader = leader.next;
-    counter++;
-  }
-
-  while (leader.next !== null) {
-    leader = leader.next;
-    follower = follower.next;
-  }
-
-  return follower;
+  //not sure of the question yet ... :(
 
 };
 
-// kthToLastElement(7, list);
+
+

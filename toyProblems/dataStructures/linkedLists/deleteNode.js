@@ -2,6 +2,8 @@
 
 //-----------------------------------Question-----------------------------//
 //delete a node from a singly linked list only given the node;
+//Time Complexity: constant
+//Space Complexity: constant
 
 var deleteNode = function (node) {
 
