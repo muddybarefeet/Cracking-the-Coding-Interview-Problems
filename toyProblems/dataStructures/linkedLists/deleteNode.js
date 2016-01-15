@@ -11,10 +11,14 @@ var deleteNode = function (node) {
   var next = current.next;
   var nextNext = current.next.next;
 
+  if (node === null || n.next === null) {
+    return false; //failure
+  }
+
   //take the value from the node after and put it on current and then delete the following node
   current.value = next.value;
   current.next = nextNext;
-  next.next = null;
+  return true;
 
 };
 
