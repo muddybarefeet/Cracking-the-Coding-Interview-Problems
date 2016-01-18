@@ -95,7 +95,7 @@ var rehash = function(){
     var indexAt = storage[hash];
 
     //if there is nothing at the hashed index return null
-    if (indexAt === undefined) {
+    if (!indexAt) {
       return null;
     }
 

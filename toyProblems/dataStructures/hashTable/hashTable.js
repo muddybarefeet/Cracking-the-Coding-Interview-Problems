@@ -55,6 +55,7 @@ var makeHashTable = function(){
     //loop through the bucket looking fot the key <---------------------------------------------------------------
     for (var i = 0; i < indexAt.length; i++) {
       var tuple = indexAt[i];
+      //if tuple is undefined tuple[0] will throw an error
       if (tuple && tuple[0] === key) {
         return tuple[1];
       }
@@ -70,7 +71,7 @@ var makeHashTable = function(){
     var indexAt = storage[hash];
 
     //if there is nothing at the hashed index return null
-    if (indexAt === undefined) {
+    if (!indexAt) {
       return null;
     }
 
@@ -103,7 +104,7 @@ var getIndexBelowMaxForKey = function(str, max){
 
  var hashTable = makeHashTable();
 hashTable.insert('Spielberg\'s best movie', 'Jaws');
-hashTable.remove('Spielberg\'s best movie');
+// hashTable.remove('Spielberg\'s best movie');
 var value = hashTable.retrieve('Spielberg\'s best movie');
 console.log(value);
 
