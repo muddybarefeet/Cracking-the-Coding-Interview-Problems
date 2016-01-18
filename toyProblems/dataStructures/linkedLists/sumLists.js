@@ -69,16 +69,17 @@ var makeNode = function (value) {
 
 var list = new LinkedList();
 list.addToTail(4);
-list.addToTail(5);
-
 
 var secondList = new LinkedList();
-secondList.addToTail(9);
+secondList.addToTail(1);
 secondList.addToTail(2);
-secondList.addToTail(7);
+secondList.addToTail(0);
 
 
 //---------------------------------QUESTION-------------------------------------//
+
+
+//------------------Part 1 sum the lists the other way-------------------------------//
 
 //take a linked list. All the values are single numbers but all together and reversed make a number
 //e.g. 7 -> 5 -> 1  = number 157
@@ -131,8 +132,83 @@ var sumLinkedList = function (newList, node1, node2, remainder) {
 
 };
 
+var toBeMadeList = new LinkedList();
+console.log(sumLinkedList(toBeMadeList, list.head, secondList.head));
+
+//------------------Part 2 sum the lists the other way-------------------------------//
+//e.g. 6-1-7 and 2-9-5 --> 9-2-1
+
+//make a stack of each list and then pop each num off the stack to make another stack and then with that stack pop each node off and make a new linkedlist
+
+var sumListsForward = function (node1, node2, newList) {
+
+  var stackOne = [];
+  var stackTwo = [];
+  var newStack = [];
+  var remainder = 0;
+  //make two stacks of the list values
+  while (node1 !== null) {
+    stackOne.push(node1.value);
+    node1 = node1.next;
+  }
+
+  while (node2 !== null) {
+    stackTwo.push(node2.value);
+    node2 = node2.next;
+  }
+
+  if (stackOne.length < stackTwo.length) {
+    var diff = stackTwo.length - stackOne.length;
+    for (var i = 0; i < diff; i++) {
+      stackOne.unshift(0);
+    }
+  }
+
+  if (stackOne.length > stackTwo.length) {
+    var diff2 = stackOne.length - stackTwo.length;
+    for (var j = 0; j < diff2; j++) {
+      stackTwo.unshift(0);
+    }
+  }
+
+  //make a new stack of the summed values
+  while (stackOne.length > 0) {
+    var num1 = stackOne.pop();
+    var num2 = stackTwo.pop();
+    var sum = num1 + num2;
+    
+    if (remainder) {
+      sum += remainder;
+      remainder = 0;
+    }
+
+    var toAddToStack;
+
+    if (sum > 9 && stackOne.length > 0) {
+      //is is two digits long
+      sum = sum.toString().split('');
+      toAddToStack = parseInt(sum.slice(-1),10);
+      remainder = parseInt(sum.slice(0,-1),10);
+    } else {
+      toAddToStack = sum;
+    }
+
+    newStack.push(toAddToStack);
+  }
+
+  //pop off the new stack and make a new list
+  while (newStack.length > 0) {
+    var num = newStack.pop();
+    newList.addToTail(num);
+  }
+
+  return newList;
+
+};
+
 // var toBeMadeList = new LinkedList();
-// console.log(sumLinkedList(toBeMadeList, list.head, secondList.head));
+// var a = sumListsForward(list.head, secondList.head, toBeMadeList);
+// console.log(a);
 
 
 
