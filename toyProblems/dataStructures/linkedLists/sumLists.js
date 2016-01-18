@@ -88,7 +88,6 @@ secondList.addToTail(0);
 //Time Complexity: linear with respect to the number of nodes
 //Space Complexity: linear (make new linkedList)
 
-
 var sumLinkedList = function (newList, node1, node2, remainder) {
 
   remainder = remainder || 0;
@@ -132,13 +131,15 @@ var sumLinkedList = function (newList, node1, node2, remainder) {
 
 };
 
-var toBeMadeList = new LinkedList();
-console.log(sumLinkedList(toBeMadeList, list.head, secondList.head));
+// var toBeMadeList = new LinkedList();
+// console.log(sumLinkedList(toBeMadeList, list.head, secondList.head));
 
 //------------------Part 2 sum the lists the other way-------------------------------//
 //e.g. 6-1-7 and 2-9-5 --> 9-2-1
 
 //make a stack of each list and then pop each num off the stack to make another stack and then with that stack pop each node off and make a new linkedlist
+//Time Complexity: Linear
+//Space Complexity: Linear
 
 var sumListsForward = function (node1, node2, newList) {
 
