@@ -1,28 +1,31 @@
 //make a stack that in addition to pop and push had a min() that in CONSTANT time
 //returns the minimum value in a stack
+//if a duplicate value equal to the min is added nothing gets added to the min count but this is ok as the one stored will always be the last in the store anyway
+//Time complexity: worst case Linear
 
 
 var Stack = function () {
 
   this.stack = {};
   var length = 0;
-  var min;//variable that is an array of two values: node and its index
+  var min;//variable that is an array of arrays(Each inner array holds two values. A value and the length at that value)
 
   this.push = function (node) {
     if (!min) {
-      min = [node, length];
-    } else if (node < min) {
-      min = [node, length];
+      min = [[node, length]];
+    } else if (node < min[min.length-1][0]) {
+      min.push([node, length]);
     }
     this.stack[length] = node;
     length ++;
+    return this.statck;
   };
 
   this.pop = function () {
     if (Object.keys(this.stack).length > 0) {
       //if the current thing to remove is the current thing
-      if (min[1] === length-1) {
-        //HOW TO KNOW WHAT THE NEXT SMALLEST THING IN THE LINKED LIST IS WITHOUT LOOKING THROUGH THE LIST AGAIN?!
+      if (min[min.length-1][0] === this.stack[length-1]) {
+        min.pop();
       }
       delete this.stack[length-1];
       length --;
@@ -31,7 +34,8 @@ var Stack = function () {
 
   this.min = function () {
     if (min) {
-      return this.stack[min[1]];
+      var lastInMinStackPosition = min[min.length-1][1];
+      return this.stack[lastInMinStackPosition];
     } else {
       return null;
     }
@@ -42,3 +46,10 @@ var Stack = function () {
   };
 
 };
+
+// var s = new Stack();
+// s.push(5);
+// s.push(9);
+// s.push(2);
+// var a = s.min();
+// console.log(a);
