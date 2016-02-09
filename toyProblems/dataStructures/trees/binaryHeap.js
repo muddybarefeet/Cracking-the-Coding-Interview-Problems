@@ -74,7 +74,7 @@ BinaryHeap.prototype.extractMin = function () {
   
   };
 
-  inner(this._heap[0], 0);
+  inner(this._heap[0], 0);t
   return min;//return the removed root
 
 };
