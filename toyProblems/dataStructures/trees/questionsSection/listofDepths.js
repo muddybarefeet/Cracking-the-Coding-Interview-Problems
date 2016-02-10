@@ -10,7 +10,7 @@ var Tree = function(number) {
   result.rightSide = null;
   result.leftSide = null;
 
-  result.insert = function(num) {
+  result.insert = function(num) {//insert function
 
     if(num>result.value) {
       if(result.rightSide === null) {
@@ -75,7 +75,6 @@ var Tree = function(number) {
       }
       list = lists[lists.length -1];
       list.addToList(listOfNodes[l].value);
-      // console.log('value',listOfNodes[l].value)
     }
     console.log('lists', lists);
     return lists;
@@ -83,6 +82,7 @@ var Tree = function(number) {
 
   };
 
+  //constructor for linked lists
   result.linkedList = function () {
     this.start = null;
     this.end = null;
@@ -104,7 +104,7 @@ var Tree = function(number) {
     };
   };
 
-  result.makeNewList = function () {
+  result.makeNewList = function () {//function to create a new linked list
     return new this.linkedList();
   };
 
@@ -113,13 +113,13 @@ var Tree = function(number) {
 };
 
   
-var ve = Tree(10);
-ve.insert(5);
-ve.insert(20);
-ve.insert(2);
-ve.insert(7);
-ve.insert(15);
-ve.insert(12);
-ve.listDepthsInLinkedList();
+// var ve = Tree(10);
+// ve.insert(5);
+// ve.insert(20);
+// ve.insert(2);
+// ve.insert(7);
+// ve.insert(15);
+// ve.insert(12);
+// ve.listDepthsInLinkedList();
 
 
