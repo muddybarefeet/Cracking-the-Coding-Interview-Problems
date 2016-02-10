@@ -33,7 +33,7 @@ var Tree = function(number) {
 
 var findMidAndInsert = function (tree, array) {
 //take array and get mid
-  var mid = Math.ceil(array.length/2);
+  var mid = Math.floor(array.length/2);
   if (array.length === 1) {
     mid = 0;
   }
@@ -57,26 +57,13 @@ var makeTree = function (sortedArray) {
     var right = sortedArray.slice(midpoint+1);
 
     var inner = function (left, right) {
+      if(left && left.length > 0) { //on left side get two extra empty leaves??!
 
-      if(left) { //on left side get two extra empty leaves??!!
-
-        //take mid index of the array
-        var mid = Math.ceil(left.length/2);
-        if (left.length === 1) {
-          mid = 0;
+        var newArrays = findMidAndInsert(tree, left);
+        if (newArrays) {
+          inner(newArrays[0],newArrays[1]);
         }
-        //insert it into the tree
-        tree.insert(left[mid]);
-
-        //slice
-        if (left.length > 1) {
-          inner(left.slice(0,mid),left.slice(mid+1));
-        }
-        // var newArrays = findMidAndInsert(tree, left);
-        // if (newArrays) {
-        //   inner(newArrays[0],newArrays[1]);
-        // }
-      } if (right) {
+      } if (right && right.length > 0) {
 
         var subArrays = findMidAndInsert(tree, right);
         if (subArrays) {
@@ -89,8 +76,8 @@ var makeTree = function (sortedArray) {
     };
 
     inner(left, right);
-    console.log('end',tree);
-    // return tree;
+    // console.log('end',tree);
+    return tree;
 
   };
 
