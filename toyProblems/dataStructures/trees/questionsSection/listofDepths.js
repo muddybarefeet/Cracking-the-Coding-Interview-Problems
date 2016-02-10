@@ -34,6 +34,7 @@ var Tree = function(number) {
 
     listOfNodes.push({
       node: this,
+      value: this.value,
       depth: depth
     });
 
@@ -61,23 +62,23 @@ var Tree = function(number) {
     };
 
     inner(this);//to get a list of all the elements and their depths
-    // console.log(listOfNodes);
 
-    //go through the list and if same as b4 depth add to list
-    //if diff depth make a new linked list
-    console.log(this.makeNewList());
-    var list = this.makeNewList();
-
+    var lists = [];
     var currentDepth = 0;
     for (var l = 0; l < listOfNodes.length; l++) {
+      var list;
       //go through the nodes in the list
-      if (listOfNodes[l].depth === currentDepth) {
-        list.addToList(listOfNodes[l].value);
-      } else {
+      if (listOfNodes[l].depth !== currentDepth || lists.length === 0) {
         currentDepth = listOfNodes[l].depth;//reset the current depth
         //make a new list and then add to this
+        lists.push(new this.linkedList());
       }
+      list = lists[lists.length -1];
+      list.addToList(listOfNodes[l].value);
+      // console.log('value',listOfNodes[l].value)
     }
+    console.log('lists', lists);
+    return lists;
 
 
   };
@@ -86,19 +87,21 @@ var Tree = function(number) {
     this.start = null;
     this.end = null;
     this.addToList = function (value) {
-    var node = new this.node(value);
-    if (this.start === null) {
-      this.start = node;
-    } else {
-      this.end.next = node;
-    }
-    this.end = new this.node(value);
-  };
-
-  result.node = function (value) {
-    var node = {};
-    node.value = value;
-    node.next = null;
+      console.log('value2', value);
+      var node = new this.node(value);
+      if (this.start === null) {
+        this.start = node;
+      } else {
+        this.end.next = node;
+      }
+      this.end = node;
+    };
+    this.node = function (value) {
+      var node = {};
+      node.value = value;
+      node.next = null;
+      return node;
+    };
   };
 
   result.makeNewList = function () {
@@ -119,6 +122,4 @@ ve.insert(15);
 ve.insert(12);
 ve.listDepthsInLinkedList();
 
-
-// var x = ve.bredthFirstRecursion(ve);
 
