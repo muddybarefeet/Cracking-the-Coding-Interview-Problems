@@ -8,14 +8,14 @@ var magicIndex = function (arr, leftIndex, rightIndex) {
 
   rightIndex = rightIndex || arr.length;
 
-  //find the midpoint
+  //find the difference between the indicies
   var diff = rightIndex - leftIndex;
+  //find the half between them
   var midNum = Math.floor( diff / 2 );
+  //translate this to the current array
   var midIndex = leftIndex + midNum;
-  //find the range
+  //find the highest number the index can be
   var highestIndex = arr.length-1;
-
-  //case for all the same values?
 
   if (diff === 0) {
 
@@ -23,32 +23,24 @@ var magicIndex = function (arr, leftIndex, rightIndex) {
 
   } else {
     
-    //if the difference is only one and the value is not the index return -------think on this....!
-    if (diff === 1 && arr[midIndex] !== midIndex) {
-      console.log('diff one');
-
-      return -1;
-    }
-    
     //value and index  > highest index
-    if (arr[midIndex] > highestIndex && midIndex > highestIndex || arr[midIndex] < 0 && midIndex < 0) {
-      console.log('in midIndex being higher than array val or index');
+    if (arr[midIndex] > highestIndex || midIndex > highestIndex || arr[midIndex] < 0 || midIndex < 0) {
       return -1;
     }
 
 
     //value > index look in first half
     if (arr[midIndex] > midIndex) {
-       magicIndex(arr, 0, midIndex);
+      return magicIndex(arr, 0, midIndex);
     }
     //value < index look in second half
     if (arr[midIndex] < midIndex) {
-       magicIndex(arr, midIndex + 1);
+      return magicIndex(arr, midIndex + 1);
     }
 
     //if the index and the value match return the value
     if (arr[midIndex] === midIndex) {
-       arr[midIndex];
+      return arr[midIndex];
     }
   }
 
@@ -57,5 +49,8 @@ var magicIndex = function (arr, leftIndex, rightIndex) {
 
 var a = magicIndex([56, 60,90, 220, 4000], 0);
 // var a = magicIndex([-23, -4, -2, 0, 4], 0);
-var a = magicIndex([56, 60,90, 220, 4000], 0);
+// var a = magicIndex([56, 60,90, 220, 4000], 0);
+// var a = magicIndex([0,1,2,3,4,5], 0);
+// var a = magicIndex([-100, 1, 4, 5, 4, 77, 101, 200], 0);
+
 console.log(a);

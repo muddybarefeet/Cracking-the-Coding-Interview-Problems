@@ -9,12 +9,15 @@ var powerSet = function (arr) {
 
     newArr = newArr.sort();
 
+    //base case
     if (leftToUse.length === 0) {
+
       if(!seen[newArr]) {
         seen[newArr] = true;
         variations.push(newArr);
       }
       return;
+
     }
 
     //add new variation to the list
@@ -36,12 +39,11 @@ var powerSet = function (arr) {
 
   inner([], arr);
 
-  // console.log(variations);
+  console.log(variations);
   return variations;
 
 };
 
 powerSet([1,2,3]);
-
 
 
