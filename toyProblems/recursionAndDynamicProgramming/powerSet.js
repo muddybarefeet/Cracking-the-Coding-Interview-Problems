@@ -1,20 +1,27 @@
 //get all the possible combinations of an array
-var a = 1;
+
 var powerSet = function (arr) {
 
-  var variations = {}; //sorted keys and true as the value
+  var variations = []; //sorted keys and true as the value
+  var seen = {};
 
   var inner = function (newArr, leftToUse) {//[], [1,2,3]
 
-    // console.log(newArr)
     newArr = newArr.sort();
 
     if (leftToUse.length === 0) {
-      variations[newArr] = true;
+      if(!seen[newArr]) {
+        seen[newArr] = true;
+        variations.push(newArr);
+      }
       return;
     }
+
     //add new variation to the list
-    variations[newArr] = true;
+    if(!seen[newArr]) {
+      seen[newArr] = true;
+      variations.push(newArr);
+    }
 
     //loop through the object and 
     for (var i = 0; i < leftToUse.length; i++) {
@@ -28,8 +35,9 @@ var powerSet = function (arr) {
   };
 
   inner([], arr);
-  // console.log(Object.keys(variations))
-  return Object.keys(variations); //this is not an array of arrays if needed can loop through and make each an array
+
+  // console.log(variations);
+  return variations;
 
 };
 
