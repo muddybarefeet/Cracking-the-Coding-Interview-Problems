@@ -13,11 +13,11 @@ var getNextCoords = function (row, col, grid) {
   newLeft = [row, col - 1];
 
   //make sure row and col are in bounds
-  if ( (row - 1) < 0) {
+  if ( (row - 1) < 0 || grid [newUp[0]] [newUp[1]] === 1) {
     newUp = null;
   }
 
-  if ( (col - 1) < 0) {
+  if ( (col - 1) < 0 || grid [newLeft[0]] [newLeft[1]] === 1) {
     newLeft = null;
   }
 
@@ -36,7 +36,7 @@ var robotPaths = function (grid) {
 
   //inner function takes x and y values
   var inner = function (row, col, grid) {
-    
+
     // console.log('row and col----->', row, col);
     //if points at the start
     if (row === 0 && col === 0) {
@@ -67,5 +67,5 @@ var robotPaths = function (grid) {
 
 };
 
-// robotPaths([[0,0,0],[0,0,0], [0,0,0]]);
+robotPaths([[0,1,0],[0,0,0], [0,0,0]]);
 
