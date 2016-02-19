@@ -27,7 +27,7 @@ var insertBinaryNumbers = function (num1, num2, i, j) {
   var right = invert(shift);
 
   //merge the two together ---->11100011
-  var clearedNum1 = left | right;
+  var clearedNum1 = left | right; //NOT WORKING HERE!!
 
   //left shift num2 by i
   var new2 = num2 << i;
