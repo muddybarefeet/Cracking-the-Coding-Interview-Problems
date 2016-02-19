@@ -31,7 +31,7 @@ var makeChange = function (targetVal) {
   var seen = {};
 
   var inner = function (numSoFar, sum) {
-    // debugger;
+
     sum = sum || "";
 
     //check still less than the target
@@ -70,3 +70,51 @@ var makeChange = function (targetVal) {
 
 var a = makeChange(5);
 console.log(a);
+
+
+//trying to make a version with a cache!
+// var makeChangeCache = function (total, sum, seen, counter, memo) {
+
+//   var options = [1, 2, 5, 10, 20, 50, 100, 200];
+//     // debugger;
+//   var counter;
+//   sum = sum || "";
+//   seen = seen || {};
+//   // counter = counter || 0;
+//   memo = memo || {};
+//   // debugger;
+//   // //check total less not less than 0
+//   // if (total < 0) throw new Error("Somthing wong!");
+
+//   if (total === 0) {
+//     sum = sum.split('').sort().join('');
+//     if (!seen[sum]) {
+//       seen[sum] = true;
+//       console.log('memo', memo);
+//     }
+//     return Object.keys(seen).length;
+//   }
+
+//   // //loop through the options
+//   for (var i = 0; i < options.length; i++) {
+//       // debugger;
+//     if (options[i] <= total) {
+//       console.log(total, 'minus:',options[i], '=', total-options[i]);
+//       //add next value to the numSoFar
+//       //if less than the target recurse again
+//       if (memo[total] === undefined) {
+//         memo[total] = makeChangeCache(total - options[i], sum + options[i], seen, 0, memo);
+//       }
+//       // console.log('memo', memo);
+//       console.log('seen', seen);
+//       counter += memo[total];
+//     }
+//   }
+
+//   return counter;
+
+// };
+
+// var a = makeChangeCache(3);
+// console.log(a);
+
