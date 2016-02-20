@@ -8,7 +8,7 @@ var managersQueue = [];
 var directorsQueue = [];
 
 var Call = function (level, length) {
-  this.level = level;
+  this.level = level; //one, two or three
   this.length = length;
 };
 
@@ -17,17 +17,18 @@ var dispatchCall = function (level, length) {
   queue.push(call);
 };
 
+//sent by an employee to take a new call
 var findNewCall = function () {
   var newCall;
-  if (!that.isBusy && queue.length > 0) {
-    if (that.type === 'manager') {
+  if (!this.isBusy && queue.length > 0) {
+    if (this.type === 'manager') {
       newCall = managersQueue.shift();
-    } else if (that.type === 'respondent') {
+    } else if (this.type === 'respondent') {
       newCall = queue.shift();
     } else {
       newCall = directorsQueue.shift();
     }
-    that.takeCall();
+    this.takeCall(newCall);//pass in shifted off call
   }
 };
 
@@ -39,10 +40,12 @@ var Respondent = function () {
   this.managers = [];
   this.passedUp = false;
   //function to check if calls ready to be answered if not busy
-  this.checkStatus = function () {
-    var that = this;
-    setInterval(findNewCall, 1000);
-  };
+  // this.checkStatus = function () { //HOW TO CALL THIS??
+  //   var that = this;
+  //   setInterval(findNewCall, 1000);
+  // };
+
+  setInterval(findNewCall.bind(this), 1000);
   //function to set the isBusy for a certain period of time
   this.takeCall = function (call) {
     var that = this;
@@ -54,7 +57,7 @@ var Respondent = function () {
     } else {
       //loop through the managers of the respondent and find the next free one
       for (var i = 0; i < this.managers.length; i++) {
-        if (this.managers[i].isBusy) {
+        if (!this.managers[i].isBusy) {
           this.managers[i].takeCall();
           that.passedUp = true;
           break;
@@ -122,3 +125,39 @@ var Director = function () {
     }
   };
 };
+
+//make this work!
+
+var managers = [];
+for(var i=0; i<10; i++){
+  managers.push(new Manager());
+}
+
+var respondents = [];
+for(var i=0; i<10; i++){
+  respondents.push(new Respondent());
+}
+
+var directors = [];
+for(var i=0; i<10; i++){
+  directors.push(new Director());
+}
+
+setInterval(function(){
+
+  var time = Math.random()*1000;
+  var level = Math.floor(Math.random()*3) + 1;
+  var length = Math.random()*2000;
+
+  setTimeout(function(){
+    dispatchCall(level,length);
+  }, time);
+
+});
+
+//Questions that could be asked:
+
+//how many managers per person?
+//maybe inherit from one base class? DO this when working
+//one manager have one director and one respondent have one manager?
+
