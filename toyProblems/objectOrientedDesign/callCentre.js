@@ -26,7 +26,7 @@ var findNewCall = function () {
     this.takeCall(queue.shift());
 
     //CODE FOR MANAGERS AND DIRECTORS QUEUES TO BE SHIFTED FROM ------- to be re implemented
-    
+
     // if (this.type === 'manager') {
     //   newCall = managersQueue.shift();
     // } else if (this.type === 'respondent') {
@@ -58,8 +58,8 @@ Respondent.prototype.takeCall = function (call) {
     console.log('call level should be 3', call.level);
     this.isBusy = true;
     setTimeout(function () {
-      that.isBusy = false;
-    }, call.length);
+      this.isBusy = false;
+    }.bind(this), call.length);
     console.log('isBusy', this.isBusy);
   } else {
     //loop through the managers of the respondent and find the next free one
@@ -92,15 +92,13 @@ var Manager = function (directors) {
 
 Manager.prototype.takeCall = function (call) {
   console.log('take call manager', call);
-  var that = this;
   if (call.level === 2) {
     this.isBusy = true;
     setTimeout(function () {
-      that.isBusy = false;
-    }, call.length);
+      this.isBusy = false;
+    }.bind(this), call.length);
     console.log('busy', this.isBusy);
   } else {
-    debugger;
     //if not the right level then needs passing to director
     for (var i = 0; i < this.directors.length; i++) {
       console.log('looking for free director');
@@ -130,9 +128,11 @@ Director.prototype.takeCall = function (call) {
   console.log('take call director', call);
   // var that = this;
   if (call.level === 1) {
+    this.isBusy = true;
     setTimeout(function () {
-      that.isBusy = true;
-    }, call.length);
+      console.log('this', this.isBusy);
+      this.isBusy = false;
+    }.bind(this), call.length);
   }
 };
 
