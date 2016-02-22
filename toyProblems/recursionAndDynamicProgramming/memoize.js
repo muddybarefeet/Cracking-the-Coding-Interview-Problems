@@ -19,7 +19,7 @@ var memoize = function (fn) {
     if (cache.hasOwnProperty(args.toString())) {
       return cache[args];
     }
-    cache[args] = fn(args[0]);
+    cache[args] = fn.apply(this, args[0]);
     return cache[args];
 
   };
