@@ -45,7 +45,7 @@ var nextNumber = function (number) {
     }
   }
 
-  return [smaller, larger];
+  return [parseInt(smaller,2), parseInt(larger,2)];
 
 };
 
