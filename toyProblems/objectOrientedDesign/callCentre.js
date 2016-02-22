@@ -16,26 +16,25 @@ var dispatchCall = function (level, length) {
   var call = new Call(level, length);
   queue.push(call);
   console.log('queue', queue);
+  console.log('managersQueue', managersQueue);
+  console.log('directorsQueue', directorsQueue);
 };
 
 //sent by an employee to take a new call
 var findNewCall = function () {
 
   var newCall;
-  if (!this.isBusy && queue.length > 0) {
-    this.takeCall(queue.shift());
-
-    //CODE FOR MANAGERS AND DIRECTORS QUEUES TO BE SHIFTED FROM ------- to be re implemented
-
-    // if (this.type === 'manager') {
-    //   newCall = managersQueue.shift();
-    // } else if (this.type === 'respondent') {
-    // } else {
-    //   newCall = directorsQueue.shift();
-    // }
-    // console.log('for respondent', queue.shift());
-    // console.log('finding call newCall', newCall);
-    // this.takeCall(newCall);//pass in shifted off call
+  if (this.type === 'repondent' && !this.isBusy && queue.length > 0) {
+    console.log('call for respondent');
+    this.takeCall(queue.shift());//pass in shifted off call
+  } else if (!this.isBusy && this.type === 'manager' && managersQueue.length > 0) {
+    console.log('manager looking for call');
+    this.takeCall(managersQueue.shift());
+  } else if (!this.isBusy && this.type === 'director' && directorsQueue.length > 0) {
+    console.log('director looking for call');
+    this.takeCall(directorsQueue.shift());
+   } else {
+    console.log('no calls in the queue looking at', this);
   }
 };
 
@@ -51,16 +50,13 @@ var Respondent = function (managers) {
 };
 
 Respondent.prototype.takeCall = function (call) {
-  var that = this;
   console.log('take call respondent', call);
   //if the call can be answered by the resondent then set isBusy
   if (call.level === 3) {
-    console.log('call level should be 3', call.level);
     this.isBusy = true;
     setTimeout(function () {
       this.isBusy = false;
     }.bind(this), call.length);
-    console.log('isBusy', this.isBusy);
   } else {
     //loop through the managers of the respondent and find the next free one
     for (var i = 0; i < this.managers.length; i++) {
@@ -87,7 +83,7 @@ var Manager = function (directors) {
   this.directors = directors;
   this.passedUp = false;
   //function to check if calls ready to be answered if not busy
-  // setInterval(findNewCall.bind(this), 3000);
+  setInterval(findNewCall.bind(this), 4000);
 };
 
 Manager.prototype.takeCall = function (call) {
@@ -97,7 +93,6 @@ Manager.prototype.takeCall = function (call) {
     setTimeout(function () {
       this.isBusy = false;
     }.bind(this), call.length);
-    console.log('busy', this.isBusy);
   } else {
     //if not the right level then needs passing to director
     for (var i = 0; i < this.directors.length; i++) {
@@ -121,16 +116,14 @@ var Director = function () {
   this.type = "director";
   this.isBusy = false;
   //look in the directors queue and see if any calls to answer
-  // setInterval(findNewCall.bind(this), 3000);
+  setInterval(findNewCall.bind(this), 10000);
 };
 
 Director.prototype.takeCall = function (call) {
   console.log('take call director', call);
-  // var that = this;
   if (call.level === 1) {
     this.isBusy = true;
     setTimeout(function () {
-      console.log('this', this.isBusy);
       this.isBusy = false;
     }.bind(this), call.length);
   }
@@ -154,15 +147,15 @@ for(var i=0; i<4; i++){
 }
 
 
-setTimeout(function(){
-  var time = Math.random()*10000;
+setInterval(function(){
+  var time = Math.random()*5000;
   var level = Math.floor(Math.random()*3) + 1;
   var length = Math.floor(Math.random()*2000);
 
-  console.log('making call', time, 1, length);
+  console.log('making call', time, level, length);
 
   setTimeout(function(){
-    dispatchCall(1,length);
+    dispatchCall(level,length);
   }, time);
 
 }, 1000);
@@ -170,6 +163,6 @@ setTimeout(function(){
 //Questions that could be asked:
 
 //how many managers per person?
-//maybe inherit from one base class? DO this when working
+//maybe inherit from one base class
 //one manager have one director and one respondent have one manager?
 
