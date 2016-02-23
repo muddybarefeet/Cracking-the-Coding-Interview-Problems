@@ -39,10 +39,33 @@ var findNewCall = function () {
 };
 
 
+
+
+// var Director = function () {
+//   this.type = "director";
+//   this.isBusy = false;
+//   //look in the directors queue and see if any calls to answer
+//   setInterval(findNewCall.bind(this), 10000);
+// };
+
+// Director.prototype.takeCall = function (call) {
+//   console.log('take call director', call);
+//   if (call.level === 1) {
+//     this.isBusy = true;
+//     setTimeout(function () {
+//       this.isBusy = false;
+//     }.bind(this), call.length);
+//   }
+// };
+
+var CallCenterEmployee = function (type) {
+  this.type = type;
+  this.isBusy = false;
+};
+
 //employee classes
 var Respondent = function (managers) {
-  this.type = "repondent";
-  this.isBusy = false;
+  CallCenterEmployee.call(this, 'respondent');
   this.managers = managers;
   this.passedUp = false;
   setInterval(findNewCall.bind(this), 3000);
@@ -77,9 +100,11 @@ Respondent.prototype.takeCall = function (call) {
   }
 };
 
+Respondent.prototype = Object.create(CallCenterEmployee.prototype);
+Respondent.prototype.constructor = Respondent;
+
 var Manager = function (directors) {
-  this.type = "manager";
-  this.isBusy = false;
+  CallCenterEmployee.call(this, 'manager');
   this.directors = directors;
   this.passedUp = false;
   //function to check if calls ready to be answered if not busy
@@ -112,9 +137,12 @@ Manager.prototype.takeCall = function (call) {
   }
 };
 
+Manager.prototype = Object.create(CallCenterEmployee.prototype);
+Manager.prototype.constructor = Manager;
+
+
 var Director = function () {
-  this.type = "director";
-  this.isBusy = false;
+  CallCenterEmployee.call(this, 'director');
   //look in the directors queue and see if any calls to answer
   setInterval(findNewCall.bind(this), 10000);
 };
@@ -128,6 +156,11 @@ Director.prototype.takeCall = function (call) {
     }.bind(this), call.length);
   }
 };
+
+Director.prototype = Object.create(CallCenterEmployee.prototype);
+Director.prototype.constructor = Director;
+
+
 
 //make this work!
 
