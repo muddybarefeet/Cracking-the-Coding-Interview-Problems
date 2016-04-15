@@ -2,6 +2,11 @@
 //once on pass has been made then see if it is totally sorted
 //else recurse
 
+//N.B.decided that I want to mutate the original array in this answer
+
+//Time Complexity = exponential if fully un-sorted
+//Space Complexity = constant (always only one bit of extra scace used not dependednt on size)
+
 var swap = function (array, currentIndex) {
   //take the array and the current index and swap this with the index before
   //return updated array
