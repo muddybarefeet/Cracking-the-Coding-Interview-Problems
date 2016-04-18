@@ -1,6 +1,9 @@
 //keep halving the array until it is split into individual numbers
 //then join the ones back together a pair at a time
 
+//Time Complexity: nlogn (all things are linear but they have to be done logn times)
+//Space Complexity:
+
 //function to split the array up
 var mergeSort = function (array) {
   if ( array.length === 1 ) {
