@@ -2,7 +2,7 @@
 //then join the ones back together a pair at a time
 
 //Time Complexity: nlogn (all things are linear but they have to be done logn times)
-//Space Complexity:
+//Space Complexity: linear
 
 //function to split the array up
 var mergeSort = function (array) {

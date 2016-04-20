@@ -2,6 +2,9 @@
 //anything less than it gets pushed to one array and anthing more than it gets pushed to the other
 //concat the results together when returning
 
+//Time Complexity: n(logn)
+//Space Complexity: linear
+
 var quickSort = function (array) {
 
   //edge case if the array only contrains one thing then return (also use for base case of recursion)
@@ -22,8 +25,6 @@ var quickSort = function (array) {
       right.push(array[i]);
     }
   }
-  console.log(left);
-  console.log(right);
 
   return quickSort(left).concat(quickSort(right));
 
